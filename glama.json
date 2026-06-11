@@ -1,0 +1,79 @@
+{
+  "$schema": "https://glama.ai/mcp/schemas/1.0.0/server.json",
+  "name": "kazi-mcp",
+  "version": "0.1.0",
+  "description": "MCP server for Kenya labor market coordination \u2014 job matching, wage benchmarks, skills verification, informal sector registration, and Employment Act rights. 6 tools.",
+  "license": "MIT",
+  "homepage": "https://gabrielmahia.github.io",
+  "author": {
+    "name": "Gabriel Mahia",
+    "email": "contact@aikungfu.dev",
+    "url": "https://gabrielmahia.github.io"
+  },
+  "keywords": [
+    "kazi",
+    "labor",
+    "employment",
+    "kenya",
+    "africa",
+    "east-africa",
+    "mcp",
+    "coordination-infrastructure"
+  ],
+  "tools": [
+    {
+      "name": "job_match",
+      "description": "Match worker skills to available jobs in Kenya",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true
+      }
+    },
+    {
+      "name": "wage_benchmark",
+      "description": "Monthly wage ranges by job title and county",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true
+      }
+    },
+    {
+      "name": "skills_gap_analysis",
+      "description": "Skills gap + training pathways for target role",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true
+      }
+    },
+    {
+      "name": "informal_sector_registry",
+      "description": "Register/lookup jua kali and informal workers",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false
+      }
+    },
+    {
+      "name": "contract_template",
+      "description": "Kenya Employment Act contract templates",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true
+      }
+    },
+    {
+      "name": "labor_rights_query",
+      "description": "Kenya Employment Act 2007 rights by topic",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true
+      }
+    }
+  ]
+}
