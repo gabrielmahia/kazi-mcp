@@ -4,7 +4,7 @@ from typing import Optional
 from fastmcp import FastMCP
 from .data import WAGE_BENCHMARKS, EMPLOYMENT_RIGHTS, SKILLS_MAP
 
-mcp = FastMCP(name="kazi-mcp", description="Kenya labor market coordination. DEMO data only.")
+mcp = FastMCP(name="kazi-mcp", instructions="Kenya labor market coordination. DEMO data only.")
 
 @mcp.tool(name="job_match", description="Match worker skills to Kenyan job categories. Returns ranked matches with wage ranges. DEMO.")
 def job_match(skills: list[str], county: Optional[str] = None) -> dict:
