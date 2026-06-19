@@ -1,5 +1,8 @@
 # kazi-mcp
 
+[![kazi-mcp Glama score](https://glama.ai/mcp/servers/gabrielmahia/kazi-mcp/badges/score.svg)](https://glama.ai/mcp/servers/gabrielmahia/kazi-mcp)
+
+
 [![PyPI](https://img.shields.io/pypi/v/kazi-mcp)](https://pypi.org/project/kazi-mcp/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
