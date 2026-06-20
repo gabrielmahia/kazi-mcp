@@ -1,6 +1,7 @@
 # kazi-mcp
 
 [![kazi-mcp Glama score](https://glama.ai/mcp/servers/gabrielmahia/kazi-mcp/badges/score.svg)](https://glama.ai/mcp/servers/gabrielmahia/kazi-mcp)
+[![smithery badge](https://smithery.ai/badge/@gabrielmahia/kazi-mcp)](https://smithery.ai/server/@gabrielmahia/kazi-mcp)
 
 
 [![PyPI](https://img.shields.io/pypi/v/kazi-mcp)](https://pypi.org/project/kazi-mcp/)
