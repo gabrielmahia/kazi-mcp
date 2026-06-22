@@ -16,7 +16,6 @@
     "employment",
     "kenya",
     "africa",
-    "east-africa",
     "mcp",
     "coordination-infrastructure",
     "data-sovereignty",
@@ -24,7 +23,9 @@
     "digital-rights",
     "privacy",
     "open-data",
-    "institutional-infrastructure"
+    "institutional-infrastructure",
+    "useful-rails",
+    "ai-agents"
   ],
   "tools": [
     {
