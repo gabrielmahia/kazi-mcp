@@ -81,3 +81,7 @@ def labor_rights_query(topic: str) -> dict:
     return {"source": "DEMO — Kenya Employment Act 2007", "topic": topic,
             "rights": matches or {"general": "Review Employment Act 2007 at kenyalaw.org"},
             "disclaimer": "Not legal advice", "all_topics": list(EMPLOYMENT_RIGHTS.keys())}
+
+def main() -> None:
+    """Console entry point."""
+    mcp.run()
