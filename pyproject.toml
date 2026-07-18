@@ -32,6 +32,10 @@ classifiers = [
 Homepage = "https://github.com/gabrielmahia/kazi-mcp"
 Repository = "https://github.com/gabrielmahia/kazi-mcp"
 "Bug Tracker" = "https://github.com/gabrielmahia/kazi-mcp/issues"
+Documentation = "https://github.com/gabrielmahia/nairobi-stack"
+"MCP Registry" = "https://registry.modelcontextprotocol.io"
+Datasets = "https://huggingface.co/gmahia"
+Evaluation = "https://github.com/gabrielmahia/kipimo"
 
 [project.scripts]
 kazi-mcp = "kazi_mcp.server:mcp.run"
