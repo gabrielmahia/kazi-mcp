@@ -1,8 +1,8 @@
 {
   "$schema": "https://glama.ai/mcp/schemas/1.0.0/server.json",
   "name": "kazi-mcp",
-  "version": "0.1.0",
-  "description": "MCP server for Kenya labor market coordination \u2014 job matching, wage benchmarks, skills verification, informal sector registration, and Employment Act rights. 6 tools.",
+  "version": "0.1.4",
+  "description": "MCP server for Kenya labor market coordination — job matching, wage benchmarks, skills verification, informal sector registration, and Employment Act rights.",
   "license": "MIT",
   "homepage": "https://gabrielmahia.github.io",
   "author": {
@@ -30,7 +30,7 @@
   "tools": [
     {
       "name": "job_match",
-      "description": "Match worker skills to available jobs in Kenya",
+      "description": "Match worker skills to Kenyan job categories. Returns ranked matches with wage ranges. DEMO.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -39,7 +39,7 @@
     },
     {
       "name": "wage_benchmark",
-      "description": "Monthly wage ranges by job title and county",
+      "description": "Monthly wage benchmark for a Kenyan job (entry/mid/senior in KES). DEMO — verify against KNBS data.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -48,7 +48,7 @@
     },
     {
       "name": "skills_gap_analysis",
-      "description": "Skills gap + training pathways for target role",
+      "description": "Identify skills gap between current skills and target job. Returns missing skills + Kenya training pathways.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -57,7 +57,7 @@
     },
     {
       "name": "informal_sector_registry",
-      "description": "Register/lookup jua kali and informal workers",
+      "description": "Register or look up informal sector worker (jua kali, boda rider, domestic worker). DEMO.",
       "annotations": {
         "readOnlyHint": false,
         "destructiveHint": false,
@@ -66,7 +66,7 @@
     },
     {
       "name": "contract_template",
-      "description": "Kenya Employment Act contract templates",
+      "description": "Generate Kenya Employment Act 2007 contract template (permanent/casual/fixed_term). NOT legal advice.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -75,12 +75,15 @@
     },
     {
       "name": "labor_rights_query",
-      "description": "Kenya Employment Act 2007 rights by topic",
+      "description": "Query Kenya Employment Act 2007 rights by topic (maternity, overtime, termination, etc). DEMO summary — not legal advice.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
         "idempotentHint": true
       }
     }
+  ],
+  "maintainers": [
+    "gabrielmahia"
   ]
 }
