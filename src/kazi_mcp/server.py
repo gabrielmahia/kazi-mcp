@@ -7,9 +7,12 @@ from fastmcp import FastMCP
 
 from .data import EMPLOYMENT_RIGHTS, SKILLS_MAP, WAGE_BENCHMARKS
 
+# Annotations tell clients which tools are safe to auto-approve (read-only, no side effects).
+READ_ONLY = {"readOnlyHint": True, "idempotentHint": True, "openWorldHint": False}
+
 mcp = FastMCP(name="kazi-mcp", instructions="Kenya labor market coordination. DEMO data only.")
 
-@mcp.tool(name="job_match", description="Match worker skills to Kenyan job categories. Returns ranked matches with wage ranges. DEMO.")
+@mcp.tool(name="job_match", description="Match worker skills to Kenyan job categories. Returns ranked matches with wage ranges. DEMO.", annotations=READ_ONLY)
 def job_match(skills: list[str], county: str | None = None) -> dict:
     matches: dict[str, int] = {}
     for skill in [s.lower() for s in skills]:
@@ -23,7 +26,7 @@ def job_match(skills: list[str], county: str | None = None) -> dict:
                 if job in WAGE_BENCHMARKS else "see wage_benchmark"} for job, score in ranked]
     return {"source": "DEMO", "skills": skills, "county": county, "matches": results}
 
-@mcp.tool(name="wage_benchmark", description="Monthly wage benchmark for a Kenyan job (entry/mid/senior in KES). DEMO — verify against KNBS data.")
+@mcp.tool(name="wage_benchmark", description="Monthly wage benchmark for a Kenyan job (entry/mid/senior in KES). DEMO — verify against KNBS data.", annotations=READ_ONLY)
 def wage_benchmark(job_title: str, experience_level: str | None = "mid", county: str | None = None) -> dict:
     key = job_title.lower().replace(" ", "_")
     bench = WAGE_BENCHMARKS.get(key) or next((v for k, v in WAGE_BENCHMARKS.items() if key in k or k in key), None)
@@ -33,7 +36,7 @@ def wage_benchmark(job_title: str, experience_level: str | None = "mid", county:
     return {"source": "DEMO", "job": job_title, "level": level, "kes_month": bench.get(level) or bench.get("mid"),
             "entry": bench["entry"], "mid": bench["mid"], "senior": bench.get("senior"), "county": county}
 
-@mcp.tool(name="skills_gap_analysis", description="Identify skills gap between current skills and target job. Returns missing skills + Kenya training pathways.")
+@mcp.tool(name="skills_gap_analysis", description="Identify skills gap between current skills and target job. Returns missing skills + Kenya training pathways.", annotations=READ_ONLY)
 def skills_gap_analysis(current_skills: list[str], target_job: str) -> dict:
     REQUIRED = {
         "software_engineer": ["python","javascript","git","api","databases"],
@@ -55,7 +58,7 @@ def skills_gap_analysis(current_skills: list[str], target_job: str) -> dict:
     return {"source": "DEMO", "target": target_job, "missing": missing, "present": present, "training": training,
             "readiness_pct": round(len(present) / max(len(req), 1) * 100) if req else 0}
 
-@mcp.tool(name="informal_sector_registry", description="Register or look up informal sector worker (jua kali, boda rider, domestic worker). DEMO.")
+@mcp.tool(name="informal_sector_registry", description="Register or look up informal sector worker (jua kali, boda rider, domestic worker). DEMO.", annotations=READ_ONLY)
 def informal_sector_registry(action: str, name: str | None = None, trade: str | None = None, county: str | None = None) -> dict:
     if action == "list_trades":
         return {"source": "DEMO", "trades": ["jua_kali","boda_rider","domestic_worker","hawker","mama_mboga","salon_barber","tailor","electrician","plumber","fundi"]}
@@ -65,7 +68,7 @@ def informal_sector_registry(action: str, name: str | None = None, trade: str | 
                 "next_steps": ["Visit county Jua Kali office", "Join a SACCO", "Register for NSSF"]}
     return {"source": "DEMO", "note": "Production queries county registry", "worker_id": None}
 
-@mcp.tool(name="contract_template", description="Generate Kenya Employment Act 2007 contract template (permanent/casual/fixed_term). NOT legal advice.")
+@mcp.tool(name="contract_template", description="Generate Kenya Employment Act 2007 contract template (permanent/casual/fixed_term). NOT legal advice.", annotations=READ_ONLY)
 def contract_template(contract_type: str, employer_name: str, employee_name: str, job_title: str, monthly_gross_kes: float, start_date: str | None = None) -> dict:
     nssf = round(0.06 * min(max(monthly_gross_kes, 0), 108_000))  # employee 6% of pensionable pay, capped at the Feb-2026 upper limit (max KES 6,480)
     tmpl = (f"EMPLOYMENT CONTRACT — {contract_type.upper()}\nKenya Employment Act 2007\n\n"
@@ -75,7 +78,7 @@ def contract_template(contract_type: str, employer_name: str, employee_name: str
             f"Notice: 28 days | Severance: 15 days/yr on redundancy\n\n[Review with qualified Kenyan advocate]")
     return {"source": "DEMO", "contract_type": contract_type, "template": tmpl, "disclaimer": "Not legal advice"}
 
-@mcp.tool(name="labor_rights_query", description="Query Kenya Employment Act 2007 rights by topic (maternity, overtime, termination, etc). DEMO summary — not legal advice.")
+@mcp.tool(name="labor_rights_query", description="Query Kenya Employment Act 2007 rights by topic (maternity, overtime, termination, etc). DEMO summary — not legal advice.", annotations=READ_ONLY)
 def labor_rights_query(topic: str) -> dict:
     tl = topic.lower()
     matches = {k: v for k, v in EMPLOYMENT_RIGHTS.items() if any(w in tl for w in k.split("_")) or any(w in k for w in tl.split())}
