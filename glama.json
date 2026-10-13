@@ -30,7 +30,7 @@
   "tools": [
     {
       "name": "job_match",
-      "description": "Match worker skills to Kenyan job categories. Returns ranked matches with wage ranges. DEMO.",
+      "description": "Suggest sample Kenyan jobs for a list of skills with an indicative monthly wage range. Use when someone asks what work fits their skills. Each skill of three or more characters is matched against a small skills table; the score is the number of skills that pointed at the job, and at most 8 jobs are returned, with a note when nothing matches. county is only echoed back. Returns the source label, the skills, county and matches (job, match_score, wage_range_kes). Indicative wages labelled DEMO, not live vacancies. Read-only; no side effects.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -39,7 +39,7 @@
     },
     {
       "name": "wage_benchmark",
-      "description": "Monthly wage benchmark for a Kenyan job (entry/mid/senior in KES). DEMO — verify against KNBS data.",
+      "description": "Indicative monthly wage in KES for a job title and experience level (entry, mid or senior). Use when someone asks what a role usually pays. job_title is matched against a small table; an unknown title returns the list of available roles. An unrecognised experience level falls back to mid. county is only echoed back. Returns the job, level, kes_month and the entry, mid and senior figures. Indicative figures labelled DEMO, not survey data: check current sources. Read-only; no side effects.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -48,7 +48,7 @@
     },
     {
       "name": "skills_gap_analysis",
-      "description": "Identify skills gap between current skills and target job. Returns missing skills + Kenya training pathways.",
+      "description": "Compare a person's skills with a target job's required skills and suggest training providers. Use when someone asks what they need to learn for a role. target_job is matched against a small table of jobs; an unknown job returns an error listing the available targets instead of a readiness of 0. Returns the target, missing and present skills, suggested training with provider and readiness_pct. Based on a small table labelled DEMO: readiness is the share of listed skills matched by name, not a competence assessment. Read-only; no side effects.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -57,7 +57,7 @@
     },
     {
       "name": "informal_sector_registry",
-      "description": "Register or look up informal sector worker (jua kali, boda rider, domestic worker). DEMO.",
+      "description": "Demonstration of an informal-sector worker registry: list the trade categories or produce a demo worker ID. Use when someone wants to see how a registry could work, not to register anyone for real. Nobody is registered: action register returns status demo_registered, a deterministic demo ID and stored false, and nothing is saved anywhere. An action other than list_trades or register returns the valid actions and no worker_id. Returns the source label and the trades or the demo record. Labelled DEMO: there is no registry behind this tool. Read-only; no side effects.",
       "annotations": {
         "readOnlyHint": false,
         "destructiveHint": false,
@@ -66,7 +66,7 @@
     },
     {
       "name": "contract_template",
-      "description": "Generate Kenya Employment Act 2007 contract template (permanent/casual/fixed_term). NOT legal advice.",
+      "description": "Generate employment contract text for Kenya from the parties' details and monthly gross pay, with the statutory terms the template states (leave, sick leave, maternity, notice, severance) and the employee NSSF deduction. Use when an employer wants a starting draft. contract_type only changes the title; any value is accepted and no legal check is made. Negative pay is treated as zero for the NSSF line. Returns the source label, contract_type, the template text and a not-legal-advice disclaimer. A template labelled DEMO: have a Kenyan advocate review it before use. Read-only; no side effects.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -75,7 +75,7 @@
     },
     {
       "name": "labor_rights_query",
-      "description": "Query Kenya Employment Act 2007 rights by topic (maternity, overtime, termination, etc). DEMO summary — not legal advice.",
+      "description": "Employment rights in Kenya under the Employment Act 2007 on a topic, with a not-legal-advice disclaimer. Use when a worker or employer asks what the law says. Keywords in topic select entries; an unmatched topic returns only a general pointer to the Act on kenyalaw.org. Returns the source label, topic, rights and a disclaimer. A short summary labelled DEMO and not legal advice: verify with the Ministry of Labour or an advocate. Read-only; no side effects.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
