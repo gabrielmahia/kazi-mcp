@@ -3,7 +3,7 @@
 <!-- coverage-adaptive-reasoning:v2 -->
 
 ## What this is
-MCP server for Kenya labor market coordination — job matching, wage benchmarks, skills verification, informal sector registration, and Employment Act rights.
+MCP server for Kenya labour market coordination: job matching, wage benchmarks, skills gap analysis, a demo informal-sector registry and Employment Act rights. Demo data; nothing is verified.
 
 ## Read first
 - README.md
