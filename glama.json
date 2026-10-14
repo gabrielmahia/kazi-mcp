@@ -1,8 +1,8 @@
 {
   "$schema": "https://glama.ai/mcp/schemas/1.0.0/server.json",
   "name": "kazi-mcp",
-  "version": "0.1.6",
-  "description": "MCP server for Kenya labor market coordination — job matching, wage benchmarks, skills verification, informal sector registration, and Employment Act rights.",
+  "version": "0.1.7",
+  "description": "MCP server for Kenya labour market coordination: job matching, wage benchmarks, skills gap analysis, a demo informal-sector registry and Employment Act rights. Demo data; nothing is verified.",
   "license": "MIT",
   "homepage": "https://gabrielmahia.github.io",
   "author": {
