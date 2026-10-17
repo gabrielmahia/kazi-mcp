@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kazi-mcp"
-version = "0.1.7"
+version = "0.1.8"
 description = "MCP server for Kenya labour market coordination: job matching, wage benchmarks, skills gap analysis, a demo informal-sector registry and Employment Act rights. Demo data; nothing is verified."
 readme = "README.md"
 license = { text = "MIT" }
