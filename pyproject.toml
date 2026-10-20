@@ -1,13 +1,13 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=77", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "kazi-mcp"
-version = "0.1.8"
+version = "0.1.9"
 description = "MCP server for Kenya labour market coordination: job matching, wage benchmarks, skills gap analysis, a demo informal-sector registry and Employment Act rights. Demo data; nothing is verified."
 readme = "README.md"
-license = { text = "MIT" }
+license = "MIT"
 requires-python = ">=3.10"
 dependencies = [
     "fastmcp>=0.9",
@@ -20,13 +20,16 @@ keywords = [
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3.15",
     "Topic :: Software Development :: Libraries",
 ]
+license-files = ["LICENSE"]
 
 [project.urls]
 Homepage = "https://github.com/gabrielmahia/kazi-mcp"
