@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import hashlib
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as _pkg_version
 from typing import Annotated, Optional
 
 from fastmcp import FastMCP
@@ -12,7 +14,13 @@ from .data import EMPLOYMENT_RIGHTS, SKILLS_MAP, WAGE_BENCHMARKS
 # Annotations tell clients which tools are safe to auto-approve (read-only, no side effects).
 READ_ONLY = {"readOnlyHint": True, "idempotentHint": True, "openWorldHint": False}
 
-mcp = FastMCP(name="kazi-mcp", instructions="Kenya labor market coordination. DEMO data only.")
+try:
+    _VERSION = _pkg_version("kazi-mcp")
+except PackageNotFoundError:  # a source tree that was never installed
+    _VERSION = "0+unknown"
+
+
+mcp = FastMCP(name="kazi-mcp", instructions="Kenya labor market coordination. DEMO data only.", version=_VERSION)
 
 @mcp.tool(name="job_match", description="Suggest sample Kenyan jobs for a list of skills with an indicative monthly wage range. Use when someone asks what work fits their skills. Each skill of three or more characters is matched against a small skills table; the score is the number of skills that pointed at the job, and at most 8 jobs are returned, with a note when nothing matches. county is only echoed back. Returns the source label, the skills, county and matches (job, match_score, wage_range_kes). Indicative wages labelled DEMO, not live vacancies. Read-only; no side effects.", annotations=READ_ONLY)
 def job_match(skills: Annotated[list[str], Field(description="List of skills such as ['welding', 'python']; entries shorter than 3 characters are ignored.")], county: Annotated[str | None, Field(description="Optional county; only echoed back.")] = None) -> dict:
