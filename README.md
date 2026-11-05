@@ -14,7 +14,7 @@ Employment Act rights. Part of the East Africa coordination infrastructure suite
 
 **kazi** (Kiswahili) = work, job, task
 
-## Tools (6)
+## Tools (7)
 
 | Tool | Description |
 |------|-------------|
@@ -24,6 +24,7 @@ Employment Act rights. Part of the East Africa coordination infrastructure suite
 | `informal_sector_registry` | Register/lookup jua kali and informal workers |
 | `contract_template` | Employment Act 2007-aligned contract templates |
 | `labor_rights_query` | Kenya Employment Act rights by topic |
+| `kenya_labour_indicators` | Kenya unemployment, youth unemployment and participation by year, from the World Bank |
 
 > **All data is DEMO (synthetic estimates).**
 
@@ -66,6 +67,12 @@ kazi-mcp
 ## License — MIT
 
 > Not legal advice. All data is synthetic demonstration data only.
+
+## Live data
+
+- `kenya_labour_indicators`: Kenya's unemployment, youth unemployment and labour force participation by year, from the World Bank (modelled ILO estimates, CC BY 4.0).
+
+Each live answer names its source, attribution and retrieval time; if a service does not answer, the tool returns an error instead of a number. The other tools are unchanged.
 
 ## IP & Collaboration
 

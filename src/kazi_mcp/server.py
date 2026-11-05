@@ -2,6 +2,13 @@
 from __future__ import annotations
 
 import hashlib
+import json
+import urllib.error
+import urllib.parse
+import urllib.request
+from datetime import UTC as _UTC
+from datetime import datetime as _dt
+from datetime import timedelta as _td
 from importlib.metadata import PackageNotFoundError
 from importlib.metadata import version as _pkg_version
 from typing import Annotated, Optional
@@ -104,6 +111,49 @@ def labor_rights_query(topic: Annotated[str, Field(description="Topic such as te
     return {"source": "DEMO — Kenya Employment Act 2007", "topic": topic,
             "rights": matches or {"general": "Review Employment Act 2007 at kenyalaw.org"},
             "disclaimer": "Not legal advice", "all_topics": list(EMPLOYMENT_RIGHTS.keys())}
+
+
+# ── Live data (free public services) ─────────────────────────────────
+# Live tools change nothing anywhere, but they contact an outside service, and clients should know that.
+LIVE_READ_ONLY = {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": True}
+LIVE_TOOLS = {"kenya_labour_indicators"}
+_LIVE_UA = {"User-Agent": "kazi-mcp (https://github.com/gabrielmahia/kazi-mcp)", "Accept": "application/json"}
+_LIVE_ERRORS = (urllib.error.URLError, TimeoutError, ValueError, KeyError, TypeError, IndexError)
+
+
+def _live_get(url: str, params: dict | None = None, timeout: float = 20.0):
+    if params:
+        url = url + "?" + urllib.parse.urlencode(params)
+    req = urllib.request.Request(url, headers=_LIVE_UA)
+    with urllib.request.urlopen(req, timeout=timeout) as r:  # fixed https endpoints only
+        return json.loads(r.read().decode("utf-8"))
+
+
+def _live_meta(source: str, attribution: str) -> dict:
+    return {"source": source, "attribution": attribution, "retrieved_at": _dt.now(_UTC).isoformat(timespec="seconds")}
+
+def _wb_series(indicators: dict, years: int) -> list:
+    got = {}
+    for key, ind in indicators.items():
+        d = _live_get(f"https://api.worldbank.org/v2/country/KEN/indicator/{ind}", {"format": "json", "mrnev": years})
+        got[key] = {row["date"]: row["value"] for row in d[1] if row.get("value") is not None}
+    yrs = sorted({y for v in got.values() for y in v}, reverse=True)
+    return [{"year": y, **{k: (round(got[k][y], 2) if y in got[k] else None) for k in indicators}} for y in yrs]
+
+
+@mcp.tool(name="kenya_labour_indicators", annotations=LIVE_READ_ONLY, description="Get Kenya's headline labour market indicators for recent years from the World Bank's World Development Indicators (modelled ILO estimates): unemployment, youth unemployment (ages 15 to 24) and labour force participation, all in percent. Use when someone needs official context on jobs and unemployment in Kenya, or a trend over several years. Returns one row per year with the three measures, the indicator codes, the source with its licence and the retrieval time; on a network or service failure it returns an error instead of figures. Read-only; contacts an external service.")
+def kenya_labour_indicators(years: Annotated[int, Field(description="How many of the most recent years with data to return, between 1 and 20.")] = 5) -> dict:
+    meta = _live_meta("LIVE — World Bank World Development Indicators API (api.worldbank.org), modelled ILO estimates", "World Bank open data, CC BY 4.0; underlying estimates by the International Labour Organization.")
+    indicators = {"unemployment_pct": "SL.UEM.TOTL.ZS", "youth_unemployment_pct": "SL.UEM.1524.ZS", "labour_force_participation_pct": "SL.TLF.CACT.ZS"}
+    if not 1 <= years <= 20:
+        return {"error": "years must be between 1 and 20", **meta}
+    try:
+        rows = _wb_series(indicators, years)
+    except _LIVE_ERRORS as e:
+        return {"error": f"the World Bank API did not return usable data ({type(e).__name__}); no figures are given without it. Try again later.", **meta}
+    return {"country": "Kenya", "indicators": indicators, "rows": rows,
+            "note": "Modelled estimates comparable across countries; Kenya's own labour surveys (KNBS) use different definitions and can differ.", **meta}
+
 
 def main() -> None:
     """Console entry point."""
