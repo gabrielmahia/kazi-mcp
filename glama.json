@@ -1,7 +1,7 @@
 {
   "$schema": "https://glama.ai/mcp/schemas/1.0.0/server.json",
   "name": "kazi-mcp",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "MCP server for Kenya labour market coordination: job matching, wage benchmarks, skills gap analysis, a demo informal-sector registry and Employment Act rights. Demo data; nothing is verified.",
   "license": "MIT",
   "homepage": "https://gabrielmahia.github.io",
@@ -80,6 +80,16 @@
         "readOnlyHint": true,
         "destructiveHint": false,
         "idempotentHint": true
+      }
+    },
+    {
+      "name": "kenya_labour_indicators",
+      "description": "Get Kenya's headline labour market indicators for recent years from the World Bank's World Development Indicators (modelled ILO estimates): unemployment, youth unemployment (ages 15 to 24) and labour force participation, all in percent. Use when someone needs official context on jobs and unemployment in Kenya, or a trend over several years. Returns one row per year with the three measures, the indicator codes, the source with its licence and the retrieval time; on a network or service failure it returns an error instead of figures. Read-only; contacts an external service.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
       }
     }
   ],
